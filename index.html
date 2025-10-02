@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chilli Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a2e, #0f1a3c, #0d142f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-family: 'Roboto', sans-serif;
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            animation: gradientFlow 20s infinite alternate;
+        }
+        @keyframes gradientFlow {
+            0% { background: radial-gradient(circle at 20% 20%, rgba(26, 26, 46, 0.9), #0f1a3c); }
+            50% { background: radial-gradient(circle at 80% 80%, #0d142f, rgba(26, 26, 46, 0.9)); }
+            100% { background: radial-gradient(circle at 20% 20%, rgba(26, 26, 46, 0.9), #0f1a3c); }
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(135, 206, 235, 0.8), rgba(173, 216, 230, 0.5));
+            filter: blur(25px);
+            box-shadow: 0 0 60px rgba(135, 206, 235, 0.7), 0 0 120px rgba(173, 216, 230, 0.4);
+            animation: orbitAndPulse 25s infinite ease-in-out;
+        }
+        .circle:nth-child(1) { width: 150px; height: 150px; left: 10%; top: 10%; animation-delay: 0s; }
+        .circle:nth-child(2) { width: 120px; height: 120px; left: 25%; top: 30%; animation-delay: 5s; }
+        .circle:nth-child(3) { width: 180px; height: 180px; left: 70%; top: 20%; animation-delay: 10s; }
+        .circle:nth-child(4) { width: 90px; height: 90px; left: 80%; top: 60%; animation-delay: 15s; }
+        .circle:nth-child(5) { width: 140px; height: 140px; left: 15%; top: 70%; animation-delay: 20s; }
+        @keyframes orbitAndPulse {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            25% { transform: translate(80px, -80px) scale(1.4); opacity: 0.9; }
+            50% { transform: translate(160px, 0) scale(1); opacity: 0.7; }
+            75% { transform: translate(80px, 80px) scale(1.4); opacity: 0.9; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+        }
+        .ring {
+            position: absolute;
+            border: 2px solid rgba(173, 216, 230, 0.5);
+            border-radius: 50%;
+            animation: pulseRing 10s infinite ease-out;
+        }
+        .ring:nth-child(1) { width: 200px; height: 200px; left: 15%; top: 15%; animation-delay: 0s; }
+        .ring:nth-child(2) { width: 150px; height: 150px; left: 60%; top: 40%; animation-delay: 5s; }
+        .ring:nth-child(3) { width: 250px; height: 250px; left: 40%; top: 60%; animation-delay: 10s; }
+        @keyframes pulseRing {
+            0% { transform: scale(0.5); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.1; }
+            100% { transform: scale(0.5); opacity: 0.3; }
+        }
+        .lines {
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(173, 216, 230, 0.3) 50%, transparent);
+            animation: wave 8s infinite linear;
+        }
+        .lines:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .lines:nth-child(2) { left: 50%; animation-delay: 2s; }
+        .lines:nth-child(3) { left: 80%; animation-delay: 4s; }
+        .lines:nth-child(4) { left: 30%; animation-delay: 6s; }
+        @keyframes wave {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent);
+            border-radius: 50%;
+            animation: fadeAndMove 12s infinite linear;
+        }
+        @keyframes fadeAndMove {
+            0% { opacity: 0.3; transform: translateY(0) scale(1); }
+            50% { opacity: 0.8; transform: translateY(-40px) scale(1.6) rotate(45deg); }
+            100% { opacity: 0.3; transform: translateY(0) scale(1); }
+        }
+        .spark {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            animation: sparkFlash 1.5s infinite;
+        }
+        @keyframes sparkFlash {
+            0% { transform: scale(0); opacity: 0.8; }
+            50% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(0); opacity: 0.8; }
+        }
+        .distortion {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(173, 216, 230, 0.1), transparent);
+            filter: blur(50px);
+            animation: distort 10s infinite ease-in-out;
+        }
+        .distortion:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .distortion:nth-child(2) { top: 60%; left: 60%; animation-delay: 5s; }
+        .distortion:nth-child(3) { top: 30%; left: 70%; animation-delay: 2s; }
+        @keyframes distort {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.1; }
+            100% { transform: scale(1) rotate(360deg); opacity: 0.3; }
+        }
+        .ray {
+            position: absolute;
+            width: 1px;
+            height: 200%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.5), transparent);
+            animation: rayMove 6s infinite linear;
+        }
+        .ray:nth-child(1) { left: 10%; top: -50%; animation-delay: 0s; }
+        .ray:nth-child(2) { left: 40%; top: -50%; animation-delay: 2s; }
+        .ray:nth-child(3) { left: 70%; top: -50%; animation-delay: 4s; }
+        @keyframes rayMove {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .rainbow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet, red);
+            animation: rainbowShift 10s infinite linear;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+        @keyframes rainbowShift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+        .buttons {
+            text-align: center;
+            z-index: 1;
+            perspective: 2500px;
+        }
+        .btn {
+            display: block;
+            width: 400px;
+            padding: 30px;
+            margin: 40px 0;
+            font-size: 36px;
+            color: #fff;
+            background: linear-gradient(45deg, rgba(75, 0, 130, 0.95), rgba(147, 112, 219, 0.85));
+            border: none;
+            border-radius: 20px; /* Уменьшено закругление */
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 60px rgba(173, 216, 230, 0.7);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn:nth-child(2) {
+            background: linear-gradient(45deg, rgba(0, 150, 136, 0.95), rgba(64, 224, 208, 0.85));
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 400%;
+            height: 400%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent 70%);
+            transition: all 1.8s ease;
+            z-index: 0;
+            opacity: 0.8;
+            animation: pulseGlow 5s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.3); opacity: 0.4; }
+        }
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite linear;
+            z-index: 1;
+        }
+        @keyframes shine {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(120%); }
+        }
+        .btn:hover::before {
+            top: -100%;
+            left: -100%;
+            opacity: 0.6;
+        }
+        .btn:hover {
+            transform: scale(0.92) translateZ(50px) rotateX(20deg) rotateY(15deg) skew(2deg, 2deg);
+            background: linear-gradient(45deg, rgba(75, 0, 130, 0.98), rgba(147, 112, 219, 0.95));
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 80px rgba(173, 216, 230, 0.9);
+        }
+        .btn:nth-child(2):hover {
+            background: linear-gradient(45deg, rgba(0, 150, 136, 0.98), rgba(64, 224, 208, 0.95));
+        }
+        .btn span {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 40px rgba(147, 112, 219, 0.4);
+        }
+        .btn:hover .particle-effect {
+            opacity: 1;
+            animation: particleBurst 1.2s infinite;
+        }
+        .particle-effect {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.7), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleBurst 1.2s infinite;
+            pointer-events: none;
+        }
+        @keyframes particleBurst {
+            0% { transform: scale(0); opacity: 0.7; }
+            50% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(0); opacity: 0.7; }
+        }
+        .click-effect {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.8), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="ring"></div>
+        <div class="lines"></div>
+        <div class="lines"></div>
+        <div class="lines"></div>
+        <div class="lines"></div>
+        <div class="particles">
+            <div class="particle" style="left: 5%; top: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; top: 40%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 60%; top: 70%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 80%; top: 20%; animation-delay: 6s;"></div>
+        </div>
+        <div class="spark" style="left: 30%; top: 30%; animation-delay: 0s;"></div>
+        <div class="spark" style="left: 70%; top: 50%; animation-delay: 1s;"></div>
+        <div class="distortion"></div>
+        <div class="distortion"></div>
+        <div class="distortion"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="rainbow-effect"></div>
+    </div>
+    <div class="buttons">
+        <a href="https://roblox.mq/communities/3257608099/#!/about" class="btn"><span>chilli hub</span><div class="particle-effect" style="top: 20%; left: 20%;"></div><div class="particle-effect" style="top: 50%; left: 70%;"></div></a>
+        <a href="https://roblox.mq/communities/878412868/" class="btn"><span>moreira method v2</span><div class="particle-effect" style="top: 30%; left: 30%;"></div><div class="particle-effect" style="top: 70%; left: 60%;"></div></a>
+    </div>
+    <script>
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 80; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particlesContainer.appendChild(particle);
+            }
+            for (let i = 0; i < 15; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'spark';
+                spark.style.left = Math.random() * 100 + '%';
+                spark.style.top = Math.random() * 100 + '%';
+                spark.style.animationDelay = Math.random() * 1.5 + 's';
+                document.querySelector('.background').appendChild(spark);
+            }
+        }
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const effect = document.createElement('div');
+                effect.className = 'click-effect';
+                effect.style.left = e.clientX - button.getBoundingClientRect().left - 10 + 'px';
+                effect.style.top = e.clientY - button.getBoundingClientRect().top - 10 + 'px';
+                button.appendChild(effect);
+                setTimeout(() => effect.remove(), 1000);
+            });
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                button.style.transform = `scale(0.92) translateZ(50px) rotateX(${y / 20}deg) rotateY(${x / 20}deg) skew(2deg, 2deg)`;
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(0.92) translateZ(50px) rotateX(0deg) rotateY(0deg) skew(0deg, 0deg)';
+            });
+        });
+
+        window.onload = createParticles;
+    </script>
+</body>
+</html>
